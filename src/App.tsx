@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
 
 import React from 'react';
@@ -93,6 +94,29 @@ const BottomTabNavigator = () => {
 
 const StackNavigation = createNativeStackNavigator();
 
+const DrawerNavigation = createDrawerNavigator();
+
+const NavigationDrawer = () => {
+  return(
+    <DrawerNavigation.Navigator>
+      <DrawerNavigation.Screen 
+        name="TabNavigationScreen" 
+        component={BottomTabNavigator}
+        options={{
+          title: 'Home',
+        }}
+      />
+      <DrawerNavigation.Screen 
+        name="CategoriasDrawerScreen" 
+        component={Categorias}
+        options={{
+          title: 'Categorias'
+        }}
+      />
+    </DrawerNavigation.Navigator>
+  );
+}
+
 export default () => {
   return (
     <NavigationContainer>
@@ -103,7 +127,7 @@ export default () => {
         />
         <StackNavigation.Screen
           name='Home'
-          component={BottomTabNavigator}
+          component={NavigationDrawer}
         />
       </StackNavigation.Navigator>
     </NavigationContainer>

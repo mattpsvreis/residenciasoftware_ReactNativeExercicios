@@ -8,15 +8,6 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.nav}>
-                <Image
-                    source={require('../../assets/menuHamburguer.png')}
-                    style={{ width: 20, height: 20 }}
-                    width={undefined}
-                    height={undefined}
-                />
-                <Text style={styles.text}>Delivery</Text>
-            </View>
             <ScrollView style={styles.body}>
                 <View style={styles.searchBox}>
                     <Input
@@ -145,14 +136,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#181717'
-    },
-    nav: {
-        backgroundColor: '#4c4747',
-        height: 50,
-        paddingHorizontal: 16,
-        paddingVertical: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
     body: {
         backgroundColor: '#242222',
