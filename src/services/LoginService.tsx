@@ -2,7 +2,7 @@ import React from 'react';
 import AxiosInstance from '../api/AxiosInstance';
 import jwt_decode from 'jwt-decode';
 
-export const LoginService = async (email: string, senha: string) => {
+const LoginService = async (email: string, senha: string) => {
     console.log(`LoginService.Email: ${email}`)
     console.log(`LoginService.Senha: ${senha}`)
 
@@ -28,3 +28,5 @@ export const LoginService = async (email: string, senha: string) => {
         console.log('Erro ao realizar login: ' + JSON.stringify(error));
     }
 }
+
+export default LoginService;

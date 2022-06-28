@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Text, Icon, Button } from 'react-native-elements';
-import { LoginService } from '../../services/LoginService';
+import LoginService from '../../services/LoginService';
 
 
 const Login = ({navigation}: any) => {
