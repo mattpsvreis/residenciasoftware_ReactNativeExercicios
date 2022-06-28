@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Text, Input, Icon, Image, Card } from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -14,11 +14,15 @@ const Home = ({navigation}: any) => {
     const [categoria, setCategoria] = React.useState<CategoriaType[]>([]);
     const [produto, setProduto] = React.useState<ProdutoType[]>([]);
 
+    const [categoriaIsLoading, setCategoriaIsLoading] = React.useState(true);
+    const [recenteIsLoading, setRecenteIsLoading] = React.useState(true);
+
     const getDadosCategoria = async () => {
         AxiosInstance
             .get('/categoria', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then(result => {
                 setCategoria(result.data);
+                setCategoriaIsLoading(false);
             })
             .catch((error) => {
                 console.log('Erro ao carregar a lista de categorias: ' + JSON.stringify(error))
@@ -30,6 +34,7 @@ const Home = ({navigation}: any) => {
             .get('/produto', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then(result => {
                 setProduto(result.data);
+                setRecenteIsLoading(false);
             })
             .catch((error) => {
                 console.log('Erro ao carregar a lista de produtos: ' + JSON.stringify(error))
@@ -74,29 +79,37 @@ const Home = ({navigation}: any) => {
                         autoCompleteType={undefined}
                     />
                 </View>
-                <ScrollView style={styles.categoriesContainer} horizontal={true}>
-                    {
-                        categoria.map((k, i) => (
-                            <TouchableOpacity key={i} style={styles.categoryButton} onPress={() => console.log(`${k.nomeCategoria} foi clicado(a)`)}>
-                                <View style={styles.categoryContainer}>
-                                    <Text style={styles.categoryText}>{k.nomeCategoria}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                        )
-                    }
-                </ScrollView>
+                {categoriaIsLoading ? 
+                    <ActivityIndicator size='large' color='#fff'/>
+                :
+                    <ScrollView style={styles.categoriesContainer} horizontal={true}>
+                        {
+                            categoria.map((k, i) => (
+                                <TouchableOpacity key={i} style={styles.categoryButton} onPress={() => console.log(`${k.nomeCategoria} foi clicado(a)`)}>
+                                    <View style={styles.categoryContainer}>
+                                        <Text style={styles.categoryText}>{k.nomeCategoria}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                            )
+                        }
+                    </ScrollView>
+                }
 
                 <Text style={styles.text2}>Recentes</Text>
 
-                <ScrollView style={styles.recentesContainer} horizontal={true}>
+                {recenteIsLoading ? 
+                    <ActivityIndicator size='large' color='#fff'/>
+                :
+                    <ScrollView style={styles.recentesContainer} horizontal={true}>
                     {
                         produto.map((k, i) => (
                             <ProdutoCard key={i} produto={k} />
                         )
                         )
                     }
-                </ScrollView>
+                    </ScrollView>
+                }
 
                 <Text style={styles.text3}>Destaques</Text>
 

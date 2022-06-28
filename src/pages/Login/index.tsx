@@ -1,17 +1,24 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { Input, Text, Icon, Button } from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = ({navigation}: any) => {
+
+    const [loading, setLoading] = React.useState(false);
+
     const [email, setEmail] = React.useState('');
     const [senha, setSenha] = React.useState('');
+
     const { login } = React.useContext(AuthContext);
+
 
     const handleLogin = async (email: string, senha: string) => {
         console.log(`Email: ${email} - Senha: ${senha}`)
-        
+
+        setLoading(true);
         const responseLogin = await login(email, senha);
+        setLoading(false);
         if(!responseLogin) {
             Alert.alert(
                 "Erro",
@@ -88,11 +95,15 @@ const Login = ({navigation}: any) => {
                 />} 
                 autoCompleteType={undefined}
             />
-            <Button
-                buttonStyle = {styles.button} 
-                title='Entrar'
-                onPress={() => handleLogin(email, senha)}
-            />
+            {loading ? 
+                    <ActivityIndicator size='large' color='#fff'/>
+                    : 
+                    <Button
+                    buttonStyle = {styles.button} 
+                    title='Entrar'
+                    onPress={() => handleLogin(email, senha)}
+                    />
+            }
         </View>
     );
 }
