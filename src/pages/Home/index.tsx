@@ -42,12 +42,26 @@ const Home = ({navigation}: any) => {
             });
     }
 
+    const pesquisarCategoria = (search: any) => {
+        if(search !== ''){
+            setCategoria(
+                categoria.filter(res => res.nomeCategoria.includes(search)),
+              ); 
+        } else {
+            getDadosCategoria();
+        }       
+    }
+
     const [search, setSearch] = React.useState('');
 
     React.useEffect(() => {
         getDadosCategoria();
         getDadosProduto();
     }, []);
+
+    React.useEffect(() => {
+        pesquisarCategoria(search);
+    }, [search])
 
     return (
         <View style={styles.container}>
