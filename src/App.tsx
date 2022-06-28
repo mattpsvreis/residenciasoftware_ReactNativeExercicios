@@ -98,19 +98,41 @@ const DrawerNavigation = createDrawerNavigator();
 
 const NavigationDrawer = () => {
   return(
-    <DrawerNavigation.Navigator>
+    <DrawerNavigation.Navigator 
+      screenOptions={{  
+        drawerStyle: {
+          backgroundColor: '#1c162b',
+        },
+        drawerActiveTintColor: '#b192ff',
+        drawerInactiveTintColor: '#fff',
+      }}
+    >
       <DrawerNavigation.Screen 
         name="TabNavigationScreen" 
         component={BottomTabNavigator}
         options={{
           title: 'Home',
+          headerStyle: {
+            backgroundColor: '#1c162b'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            color: '#fff',
+          },
         }}
       />
       <DrawerNavigation.Screen 
         name="CategoriasDrawerScreen" 
         component={Categorias}
         options={{
-          title: 'Categorias'
+          title: 'Categorias',
+          headerStyle: {
+            backgroundColor: '#1c162b'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            color: '#fff',
+          },
         }}
       />
     </DrawerNavigation.Navigator>
