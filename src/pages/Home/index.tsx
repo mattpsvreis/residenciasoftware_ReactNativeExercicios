@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
 import { Text, Input, Icon, Image, Card } from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
 import AxiosInstance from "../../api/AxiosInstance";
 import ProdutoCard from "../../components/ProdutoCard";
+import CategoriaCard from "../../components/CategoriaCard";
 import CategoriaType from "../../models/CategoriaType";
 import ProdutoType from "../../models/ProdutoType";
 
@@ -82,18 +83,12 @@ const Home = ({navigation}: any) => {
                 {categoriaIsLoading ? 
                     <ActivityIndicator size='large' color='#fff'/>
                 :
-                    <ScrollView style={styles.categoriesContainer} horizontal={true}>
-                        {
-                            categoria.map((k, i) => (
-                                <TouchableOpacity key={i} style={styles.categoryButton} onPress={() => console.log(`${k.nomeCategoria} foi clicado(a)`)}>
-                                    <View style={styles.categoryContainer}>
-                                        <Text style={styles.categoryText}>{k.nomeCategoria}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            )
-                            )
-                        }
-                    </ScrollView>
+                    <FlatList
+                        data={categoria}
+                        horizontal={true}
+                        style={styles.categoriesContainer}
+                        renderItem={response => <CategoriaCard categoria={response.item}/>}
+                    />
                 }
 
                 <Text style={styles.text2}>Recentes</Text>
@@ -101,14 +96,12 @@ const Home = ({navigation}: any) => {
                 {recenteIsLoading ? 
                     <ActivityIndicator size='large' color='#fff'/>
                 :
-                    <ScrollView style={styles.recentesContainer} horizontal={true}>
-                    {
-                        produto.map((k, i) => (
-                            <ProdutoCard key={i} produto={k} />
-                        )
-                        )
-                    }
-                    </ScrollView>
+                    <FlatList
+                        data={produto}
+                        horizontal={true}
+                        style={styles.recentesContainer}
+                        renderItem={response => <ProdutoCard produto={response.item}/>}
+                    />
                 }
 
                 <Text style={styles.text3}>Destaques</Text>
