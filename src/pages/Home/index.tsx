@@ -11,13 +11,19 @@ type CategoriaType = {
 }
 
 type ProdutoType = {
-    idEstoque: number;
-    quantidade: number;
     idProduto: number;
+    sku: string;
     nomeProduto: string;
+    descricaoProduto: string;
+    imagemProduto: string;
+    precoProduto: number;
+    nomeFornecedor: string;
+    idFornecedor: number;
+    nomeCategoria: string;
+    idCategoria: number;
 }
 
-const Home = ({route, navigation}: any) => {
+const Home = ({ route, navigation }: any) => {
 
     const { token } = route.params;
     const [categoria, setCategoria] = useState<CategoriaType[]>([]);
@@ -25,7 +31,7 @@ const Home = ({route, navigation}: any) => {
 
     const getDadosCategoria = async () => {
         AxiosInstance
-            .get('/categoria', { headers: {"Authorization": `Bearer ${token}`} })
+            .get('/categoria', { headers: { "Authorization": `Bearer ${token}` } })
             .then(result => {
                 setCategoria(result.data);
             })
@@ -36,7 +42,7 @@ const Home = ({route, navigation}: any) => {
 
     const getDadosProduto = async () => {
         AxiosInstance
-            .get('/estoque/estoque-produto', { headers: {"Authorization": `Bearer ${token}`} })
+            .get('/produto', { headers: { "Authorization": `Bearer ${token}` } })
             .then(result => {
                 setProduto(result.data);
             })
@@ -91,7 +97,7 @@ const Home = ({route, navigation}: any) => {
                                     <Text style={styles.categoryText}>{k.nomeCategoria}</Text>
                                 </View>
                             </TouchableOpacity>
-                            )
+                        )
                         )
                     }
                 </ScrollView>
@@ -101,14 +107,14 @@ const Home = ({route, navigation}: any) => {
                 <ScrollView style={styles.recentesContainer} horizontal={true}>
                     {
                         produto.map((k, i) => (
-                            <ProdutoCard key={i} produto={k} token={token}/>
-                            )
+                            <ProdutoCard key={i} produto={k} token={token} />
+                        )
                         )
                     }
                 </ScrollView>
 
                 <Text style={styles.text3}>Destaques</Text>
-                
+
                 <View>
                     <Image
                         source={require('../../assets/cardDestaques.png')}
@@ -200,18 +206,18 @@ export const styles = StyleSheet.create({
         padding: 0,
         width: 120,
         height: 210
-      },
+    },
     textCardTitle: {
         color: '#000000',
         textAlign: 'left',
         fontWeight: 'bold',
         paddingLeft: 10
-      },
+    },
     textCardDescription: {
         color: '#000000',
         textAlign: 'left',
         paddingLeft: 10
-      },
+    },
     destaqueContainer: {
         width: 380,
         height: 150,
