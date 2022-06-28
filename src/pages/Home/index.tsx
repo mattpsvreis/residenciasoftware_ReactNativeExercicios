@@ -42,10 +42,10 @@ const Home = ({navigation}: any) => {
             });
     }
 
-    const pesquisarCategoria = (search: any) => {
+    const pesquisarCategoria = (search: string) => {
         if(search !== ''){
             setCategoria(
-                categoria.filter(res => res.nomeCategoria.includes(search)),
+                categoria.filter(res => res.nomeCategoria.toLowerCase().includes(search.toLowerCase())),
               ); 
         } else {
             getDadosCategoria();
