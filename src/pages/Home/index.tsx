@@ -1,10 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Input, Icon, Image, Card } from 'react-native-elements';
+import AxiosInstance from "../../api/AxiosInstance";
+import ProdutoCard from "../../components/ProdutoCard";
 
-const Home = () => {
+type CategoriaType = {
+    idCategoria: number;
+    nomeCategoria: string;
+    nomeImagem: string;
+}
+
+type ProdutoType = {
+    idEstoque: number;
+    quantidade: number;
+    idProduto: number;
+    nomeProduto: string;
+}
+
+const Home = ({route, navigation}: any) => {
+
+    const { token } = route.params;
+    const [categoria, setCategoria] = useState<CategoriaType[]>([]);
+    const [produto, setProduto] = useState<ProdutoType[]>([]);
+
+    const getDadosCategoria = async () => {
+        AxiosInstance
+            .get('/categoria', { headers: {"Authorization": `Bearer ${token}`} })
+            .then(result => {
+                setCategoria(result.data);
+            })
+            .catch((error) => {
+                console.log('Erro ao carregar a lista de categorias: ' + JSON.stringify(error))
+            });
+    }
+
+    const getDadosProduto = async () => {
+        AxiosInstance
+            .get('/estoque/estoque-produto', { headers: {"Authorization": `Bearer ${token}`} })
+            .then(result => {
+                setProduto(result.data);
+            })
+            .catch((error) => {
+                console.log('Erro ao carregar a lista de produtos: ' + JSON.stringify(error))
+            });
+    }
 
     const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        getDadosCategoria();
+        getDadosProduto();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -38,83 +84,27 @@ const Home = () => {
                     />
                 </View>
                 <ScrollView style={styles.categoriesContainer} horizontal={true}>
-                    <TouchableOpacity style={styles.categoryButton} onPress={() => console.log('Categoria 1 foi clicada')}>
-                        <View style={styles.categoryContainer}>
-                            <Text style={styles.categoryText}>Categoria 1</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton} onPress={() => console.log('Categoria 2 foi clicada')}>
-                        <View style={styles.categoryContainer}>
-                            <Text style={styles.categoryText}>Categoria 2</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton} onPress={() => console.log('Categoria 3 foi clicada')}>
-                        <View style={styles.categoryContainer}>
-                            <Text style={styles.categoryText}>Categoria 3</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton} onPress={() => console.log('Categoria 4 foi clicada')}>
-                        <View style={styles.categoryContainer}>
-                            <Text style={styles.categoryText}>Categoria 4</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        categoria.map((k, i) => (
+                            <TouchableOpacity key={i} style={styles.categoryButton} onPress={() => console.log(`${k.nomeCategoria} foi clicado(a)`)}>
+                                <View style={styles.categoryContainer}>
+                                    <Text style={styles.categoryText}>{k.nomeCategoria}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            )
+                        )
+                    }
                 </ScrollView>
 
                 <Text style={styles.text2}>Recentes</Text>
 
                 <ScrollView style={styles.recentesContainer} horizontal={true}>
-                    <TouchableOpacity onPress={() => console.log('Recentes 1 foi clicado')}>
-                        <Card containerStyle={styles.recenteContainer}>
-                            <Card.Image
-                                source={require('../../assets/image.png')}
-                                style={{width: 120, height: 120}}
-                                width={undefined}
-                                height={undefined}
-                            />
-                            <Card.Divider />
-                            <Card.Title style={styles.textCardTitle}>Título</Card.Title>
-                            <Text style={styles.textCardDescription}>Descrição</Text>
-                        </Card>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => console.log('Recentes 2 foi clicado')}>
-                        <Card containerStyle={styles.recenteContainer}>
-                            <Card.Image
-                                source={require('../../assets/image.png')}
-                                style={{width: 120, height: 120}}
-                                width={undefined}
-                                height={undefined}
-                            />
-                            <Card.Divider />
-                            <Card.Title style={styles.textCardTitle}>Título</Card.Title>
-                            <Text style={styles.textCardDescription}>Descrição</Text>
-                        </Card>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => console.log('Recentes 3 foi clicado')}>
-                        <Card containerStyle={styles.recenteContainer}>
-                            <Card.Image
-                                source={require('../../assets/image.png')}
-                                style={{width: 120, height: 120}}
-                                width={undefined}
-                                height={undefined}
-                            />
-                            <Card.Divider />
-                            <Card.Title style={styles.textCardTitle}>Título</Card.Title>
-                            <Text style={styles.textCardDescription}>Descrição</Text>
-                        </Card>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => console.log('Recentes 4 foi clicado')}>
-                        <Card containerStyle={styles.recenteContainer}>
-                            <Card.Image
-                                source={require('../../assets/image.png')}
-                                style={{width: 120, height: 120}}
-                                width={undefined}
-                                height={undefined}
-                            />
-                            <Card.Divider />
-                            <Card.Title style={styles.textCardTitle}>Título</Card.Title>
-                            <Text style={styles.textCardDescription}>Descrição</Text>
-                        </Card>
-                    </TouchableOpacity>
+                    {
+                        produto.map((k, i) => (
+                            <ProdutoCard key={i} produto={k} token={token}/>
+                            )
+                        )
+                    }
                 </ScrollView>
 
                 <Text style={styles.text3}>Destaques</Text>
@@ -132,7 +122,7 @@ const Home = () => {
     );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#181717'
