@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Input, Icon, Image, Card } from 'react-native-elements';
+
 import AxiosInstance from "../../api/AxiosInstance";
 import ProdutoCard from "../../components/ProdutoCard";
-
-type CategoriaType = {
-    idCategoria: number;
-    nomeCategoria: string;
-    nomeImagem: string;
-}
-
-type ProdutoType = {
-    idProduto: number;
-    sku: string;
-    nomeProduto: string;
-    descricaoProduto: string;
-    imagemProduto: string;
-    precoProduto: number;
-    nomeFornecedor: string;
-    idFornecedor: number;
-    nomeCategoria: string;
-    idCategoria: number;
-}
+import CategoriaType from "../../models/CategoriaType";
+import ProdutoType from "../../models/ProdutoType";
 
 const Home = ({ route, navigation }: any) => {
 
