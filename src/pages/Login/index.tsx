@@ -1,15 +1,37 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Text, Icon, Button } from 'react-native-elements';
+import { LoginService } from '../../services/LoginService';
 
 
 const Login = ({navigation}: any) => {
     const [email, setEmail] = React.useState('');
     const [senha, setSenha] = React.useState('');
 
-    const handleLogin = (email: string, senha: string) => {
+    const handleLogin = async (email: string, senha: string) => {
         console.log(`Email: ${email} - Senha: ${senha}`)
-        navigation.navigate('Home')
+        
+        const responseLogin = await LoginService(email, senha);
+        if(!responseLogin) {
+            Alert.alert(
+                "Erro",
+                "",
+                [
+                    { text: "OK" },
+                    { text: "Não foi possível realizar o login." },
+                ]
+            );
+        } else {
+            navigation.navigate('Home', {
+                screen: 'TabNavigationScreen',
+                params: {
+                    screen: 'HomeTabScreen',
+                    params: {
+                        token: responseLogin.token,
+                    }
+                }
+            });
+        }
     }
 
     const styles = StyleSheet.create({
