@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Input, Icon, Image, Card } from 'react-native-elements';
+import { AuthContext } from '../../context/AuthContext';
 
 import AxiosInstance from "../../api/AxiosInstance";
 import ProdutoCard from "../../components/ProdutoCard";
 import CategoriaType from "../../models/CategoriaType";
 import ProdutoType from "../../models/ProdutoType";
 
-const Home = ({ route, navigation }: any) => {
+const Home = ({navigation}: any) => {
 
-    const { token } = route.params;
-    const [categoria, setCategoria] = useState<CategoriaType[]>([]);
-    const [produto, setProduto] = useState<ProdutoType[]>([]);
+    const { user } = React.useContext(AuthContext);
+    const [categoria, setCategoria] = React.useState<CategoriaType[]>([]);
+    const [produto, setProduto] = React.useState<ProdutoType[]>([]);
 
     const getDadosCategoria = async () => {
         AxiosInstance
-            .get('/categoria', { headers: { "Authorization": `Bearer ${token}` } })
+            .get('/categoria', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then(result => {
                 setCategoria(result.data);
             })
@@ -26,7 +27,7 @@ const Home = ({ route, navigation }: any) => {
 
     const getDadosProduto = async () => {
         AxiosInstance
-            .get('/produto', { headers: { "Authorization": `Bearer ${token}` } })
+            .get('/produto', { headers: { "Authorization": `Bearer ${user.token}` } })
             .then(result => {
                 setProduto(result.data);
             })
@@ -35,9 +36,9 @@ const Home = ({ route, navigation }: any) => {
             });
     }
 
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = React.useState('');
 
-    useEffect(() => {
+    React.useEffect(() => {
         getDadosCategoria();
         getDadosProduto();
     }, []);
@@ -91,7 +92,7 @@ const Home = ({ route, navigation }: any) => {
                 <ScrollView style={styles.recentesContainer} horizontal={true}>
                     {
                         produto.map((k, i) => (
-                            <ProdutoCard key={i} produto={k} token={token} />
+                            <ProdutoCard key={i} produto={k} />
                         )
                         )
                     }
