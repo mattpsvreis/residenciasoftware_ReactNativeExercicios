@@ -10,7 +10,7 @@ export default function CategoriaCard(props: any) {
     const image = `${props.categoria.nomeImagem}`
 
     const handlePress = () => {
-        props.navigation.navigate('CategoriaDrawerScreen')
+        props.navigation.navigate('CategoriasDrawerScreen')
     }
 
     return (

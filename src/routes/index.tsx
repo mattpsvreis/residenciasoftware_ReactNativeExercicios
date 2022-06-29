@@ -120,20 +120,6 @@ const NavigationDrawer = () => {
           },
         }}
       />
-      <DrawerNavigation.Screen 
-        name="CategoriaDrawerScreen" 
-        component={Categoria}
-        options={{
-          title: '',
-          headerStyle: {
-            backgroundColor: '#1c162b'
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            color: '#fff',
-          },
-        }}
-      />
     </DrawerNavigation.Navigator>
   );
 }
