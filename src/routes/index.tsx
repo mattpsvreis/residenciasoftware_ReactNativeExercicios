@@ -8,6 +8,7 @@ import React from 'react';
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Categorias from '../pages/Categorias';
+import Categoria from '../pages/Categoria';
 import Carrinho from '../pages/Carrinho';
 import Favoritos from '../pages/Favoritos';
 
@@ -30,22 +31,6 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({focused}) => (
             <Icon 
               name='home'
-              color={focused ? "#b192ff" : "#fff"}
-              type='material-community'
-              size={30}
-              tvParallaxProperties={undefined}
-            />
-          ),
-        }}
-      />
-      <TabNavigation.Screen 
-        name='CategoriasTabScreen'
-        component={Categorias}
-        options={{
-          tabBarLabel: 'Categorias',
-          tabBarIcon: ({focused}) => (
-            <Icon 
-              name='magnify'
               color={focused ? "#b192ff" : "#fff"}
               type='material-community'
               size={30}
@@ -98,6 +83,7 @@ const DrawerNavigation = createDrawerNavigator();
 const NavigationDrawer = () => {
   return(
     <DrawerNavigation.Navigator 
+      initialRouteName='TabNavigationScreen'
       screenOptions={{  
         drawerStyle: {
           backgroundColor: '#1c162b',
@@ -125,6 +111,20 @@ const NavigationDrawer = () => {
         component={Categorias}
         options={{
           title: 'Categorias',
+          headerStyle: {
+            backgroundColor: '#1c162b'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            color: '#fff',
+          },
+        }}
+      />
+      <DrawerNavigation.Screen 
+        name="CategoriaDrawerScreen" 
+        component={Categoria}
+        options={{
+          title: '',
           headerStyle: {
             backgroundColor: '#1c162b'
           },
