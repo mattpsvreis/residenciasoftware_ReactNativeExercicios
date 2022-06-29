@@ -5,7 +5,8 @@ import LoginService from "../services/LoginService";
 
 export const AuthContext = createContext({});
 
-export const AuthProvider = ({children}: any) => {
+export const AuthProvider = ({ children }: any) => {
+
     const [user, setUser] = useState<UsuarioType>();
 
     const login = async (email: string, senha: string) => {

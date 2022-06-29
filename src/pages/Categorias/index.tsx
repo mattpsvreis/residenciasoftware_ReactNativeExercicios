@@ -1,10 +1,21 @@
 import React from "react";
 
+import { CategoriaContext } from "../../context/CategoriaContext";
+
 const Categorias = () => {
-    return(
-        <>
-        </>
-    );
+    const { categoria, setCategoria } = React.useContext(CategoriaContext)
+
+    if(!categoria.idCategoria === null) {
+        return(
+            <>
+            </>
+        )
+    } else {
+        return (
+            <>
+            </>
+        )
+    }
 }
 
 export default Categorias;

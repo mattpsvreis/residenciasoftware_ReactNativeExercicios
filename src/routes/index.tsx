@@ -8,7 +8,6 @@ import React from 'react';
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Categorias from '../pages/Categorias';
-import Categoria from '../pages/Categoria';
 import Carrinho from '../pages/Carrinho';
 import Favoritos from '../pages/Favoritos';
 
