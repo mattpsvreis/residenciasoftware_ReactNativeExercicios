@@ -10,6 +10,7 @@ import Home from '../pages/Home';
 import Categorias from '../pages/Categorias';
 import Carrinho from '../pages/Carrinho';
 import Favoritos from '../pages/Favoritos';
+import Categoria from '../pages/Categoria';
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -134,6 +135,10 @@ const Routes = () => {
                 <StackNavigation.Screen
                     name='Home'
                     component={NavigationDrawer}
+                />
+                <StackNavigation.Screen
+                    name='Categoria'
+                    component={Categoria}
                 />
             </StackNavigation.Navigator>
         </NavigationContainer>

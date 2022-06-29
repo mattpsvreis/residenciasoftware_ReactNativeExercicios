@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
+import { View, StyleSheet, ScrollView, ActivityIndicator, FlatList } from 'react-native';
 import { Text, Input, Icon, Image, Card } from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -96,11 +96,11 @@ const Home = ({navigation}: any) => {
                         data={categoria}
                         horizontal={true}
                         style={styles.categoriesContainer}
-                        renderItem={response => <CategoriaCard categoria={response.item} navigation={navigation}/>}
+                        renderItem={response => <CategoriaCard categoria={response.item} navigation={navigation} styles={styles}/>}
                     />
                 }
 
-                <Text style={styles.text2}>Recentes</Text>
+                <Text style={styles.text2}>Produtos</Text>
 
                 {recenteIsLoading ? 
                     <ActivityIndicator size='large' color='#fff'/>
@@ -108,8 +108,8 @@ const Home = ({navigation}: any) => {
                     <FlatList
                         data={produto}
                         horizontal={true}
-                        style={styles.recentesContainer}
-                        renderItem={response => <ProdutoCard produto={response.item}/>}
+                        style={styles.produtosContainer}
+                        renderItem={response => <ProdutoCard produto={response.item} styles={styles}/>}
                     />
                 }
 
@@ -176,13 +176,23 @@ export const styles = StyleSheet.create({
         width: 120,
         height: 175
     },
-    recentesContainer: {
+    categoryContainerImage: {
+        width: 120,
+        height: 120,
+        marginBottom: 10
+    },
+    produtosContainer: {
         paddingBottom: 10,
     },
-    recenteContainer: {
+    produtoContainer: {
         padding: 0,
         width: 120,
         height: 210
+    },
+    produtoContainerImage: {
+        width: 120,
+        height: 120,
+        marginBottom: 10
     },
     textCardTitle: {
         color: '#000000',

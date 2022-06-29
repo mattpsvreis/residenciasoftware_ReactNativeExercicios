@@ -1,7 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Text, Image, Card } from 'react-native-elements';
-import { styles } from '../pages/Home';
 
 export default function ProdutoCard(props: any) {
     const formatBRL = (value: any) => {
@@ -13,15 +12,15 @@ export default function ProdutoCard(props: any) {
 
     return (
         <TouchableOpacity onPress={() => console.log(`${props.produto.nomeProduto} foi clicado(a)`)}>
-            <Card containerStyle={styles.recenteContainer}>
+            <Card containerStyle={props.styles.produtoContainer}>
                 <Card.Image
                     source={{uri: image}}
-                    style={{ width: 120, height: 120, marginBottom: 10 }}
+                    style={props.styles.produtoContainerImage}
                     width={undefined}
                     height={undefined}
                 />
-                <Card.Title style={styles.textCardTitle}>{props.produto.nomeProduto}</Card.Title>
-                <Text style={styles.textCardValue}>{formatBRL(`${props.produto.precoProduto}`)}</Text>
+                <Card.Title style={props.styles.textCardTitle}>{props.produto.nomeProduto}</Card.Title>
+                <Text style={props.styles.textCardValue}>{formatBRL(`${props.produto.precoProduto}`)}</Text>
             </Card>
         </TouchableOpacity>
     )
