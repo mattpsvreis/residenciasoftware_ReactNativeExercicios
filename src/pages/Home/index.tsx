@@ -68,7 +68,7 @@ const Home = ({navigation}: any) => {
             <ScrollView style={styles.body}>
                 <View style={styles.searchBox}>
                     <Input
-                        placeholder="ex: Produto x"
+                        placeholder="ex: Camisas"
                         onChangeText={setSearch}
                         inputContainerStyle={styles.inputContainer}
                         value={search}
@@ -82,18 +82,13 @@ const Home = ({navigation}: any) => {
                                 tvParallaxProperties={undefined}
                             />
                         }
-                        rightIcon={
-                            <Image
-                                source={require('../../assets/filter.png')}
-                                style={{ width: 20, height: 20, marginRight: 10 }}
-                                height={undefined}
-                                width={undefined}
-                            />
-                        }
                         placeholderTextColor={'#a49595'}
                         autoCompleteType={undefined}
                     />
                 </View>
+
+                <Text style={styles.text2}>Categorias</Text>
+
                 {categoriaIsLoading ? 
                     <ActivityIndicator size='large' color='#fff'/>
                 :
@@ -101,7 +96,7 @@ const Home = ({navigation}: any) => {
                         data={categoria}
                         horizontal={true}
                         style={styles.categoriesContainer}
-                        renderItem={response => <CategoriaCard categoria={response.item}/>}
+                        renderItem={response => <CategoriaCard categoria={response.item} navigation={navigation}/>}
                     />
                 }
 
@@ -123,7 +118,7 @@ const Home = ({navigation}: any) => {
                 <View>
                     <Image
                         source={require('../../assets/cardDestaques.png')}
-                        style={{ width: 380, height: 300 }}
+                        style={{ width: 380, height: 300, marginBottom: 40 }}
                         height={undefined}
                         width={undefined}
                     />
@@ -174,53 +169,35 @@ export const styles = StyleSheet.create({
         padding: 10
     },
     categoriesContainer: {
-        flexGrow: 0,
+        paddingBottom: 10,
     },
     categoryContainer: {
+        padding: 0,
         width: 120,
-        height: 120,
-        backgroundColor: '#9549c7',
-        alignContent: 'center',
-        justifyContent: 'center'
-    },
-    categoryButton: {
-        alignItems: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 15
-    },
-    categoryText: {
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 20
-    },
-    categoryTextTitle: {
-        color: '#000000',
-        textAlign: 'left',
-        fontWeight: 'bold'
-    },
-    categoryTextDescription: {
-        color: '#000000',
-        textAlign: 'left',
-        padding: 'auto'
+        height: 175
     },
     recentesContainer: {
         paddingBottom: 10,
     },
     recenteContainer: {
-        borderRadius: 5,
         padding: 0,
         width: 120,
         height: 210
     },
     textCardTitle: {
         color: '#000000',
-        textAlign: 'left',
+        textAlign: 'center',
         fontWeight: 'bold',
         paddingLeft: 10
     },
     textCardDescription: {
         color: '#000000',
         textAlign: 'left',
+        paddingLeft: 10
+    },
+    textCardValue: {
+        color: '#000000',
+        textAlign: 'center',
         paddingLeft: 10
     },
     destaqueContainer: {
