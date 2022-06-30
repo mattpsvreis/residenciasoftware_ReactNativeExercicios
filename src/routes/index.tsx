@@ -96,7 +96,7 @@ const NavigationDrawer = () => {
         name="TabNavigationScreen" 
         component={BottomTabNavigator}
         options={{
-          title: 'Serra Fashion',
+          title: 'Saturno Geek',
           headerStyle: {
             backgroundColor: '#1c162b'
           },
