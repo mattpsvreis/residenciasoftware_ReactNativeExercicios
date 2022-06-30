@@ -11,6 +11,7 @@ import Categorias from '../pages/Categorias';
 import Carrinho from '../pages/Carrinho';
 import Favoritos from '../pages/Favoritos';
 import Categoria from '../pages/Categoria';
+import Produto from '../pages/Produto';
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -139,6 +140,10 @@ const Routes = () => {
                 <StackNavigation.Screen
                     name='Categoria'
                     component={Categoria}
+                />
+                <StackNavigation.Screen
+                    name='Produto'
+                    component={Produto}
                 />
             </StackNavigation.Navigator>
         </NavigationContainer>
