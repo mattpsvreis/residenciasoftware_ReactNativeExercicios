@@ -6,8 +6,14 @@ export default function ProdutoCard(props: any) {
 
     const image = `${props.produto.imagemProduto}`;
 
+    const handlePress = () => {
+        props.navigation.navigate({name: 'Produto', params: {
+            produto: props.produto,
+        }});
+    }
+
     return (
-        <TouchableOpacity onPress={() => console.log(`${props.produto.nomeProduto} foi clicado(a)`)}>
+        <TouchableOpacity onPress={handlePress}>
             <Card containerStyle={props.styles.produtoContainer}>
                 <Card.Image
                     source={{ uri: image }}

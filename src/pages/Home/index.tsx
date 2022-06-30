@@ -109,7 +109,7 @@ const Home = ({navigation}: any) => {
                         data={produto}
                         horizontal={true}
                         style={styles.produtosContainer}
-                        renderItem={response => <ProdutoCard produto={response.item} styles={styles}/>}
+                        renderItem={response => <ProdutoCard produto={response.item} navigation={navigation} styles={styles}/>}
                     />
                 }
 
