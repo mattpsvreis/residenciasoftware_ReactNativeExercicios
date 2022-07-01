@@ -47,6 +47,8 @@ export function CarrinhoProvider({ children }: any) {
 
             return produto;
         });
+
+        console.log("Lista de Produtos no Carrinho: " + JSON.stringify(listProdutos()));
     }
 
     const removeProduto = () => {
