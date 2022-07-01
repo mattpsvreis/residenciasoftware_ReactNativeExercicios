@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Icon } from 'react-native-elements';
+import { Icon, withBadge } from 'react-native-elements';
 
 import React from 'react';
 import Login from '../pages/Login';
@@ -12,9 +12,12 @@ import Carrinho from '../pages/Carrinho';
 import Favoritos from '../pages/Favoritos';
 import Categoria from '../pages/Categoria';
 import Produto from '../pages/Produto';
+import { CarrinhoContext } from '../context/CarrinhoContext';
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
+  const { countProdutos } = React.useContext(CarrinhoContext)
+
   return (
     <TabNavigation.Navigator 
     screenOptions={{
@@ -61,7 +64,7 @@ const BottomTabNavigator = () => {
         component={Carrinho}
         options={{
           tabBarLabel: 'Carrinho',
-          tabBarBadge: 3,
+          tabBarBadge: countProdutos(),
           tabBarIcon: ({focused}) => (
             <Icon 
               name='cart'
