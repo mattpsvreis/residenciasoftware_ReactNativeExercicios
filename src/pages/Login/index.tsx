@@ -14,8 +14,6 @@ const Login = ({navigation}: any) => {
 
 
     const handleLogin = async (email: string, senha: string) => {
-        console.log(`Email: ${email} - Senha: ${senha}`)
-
         setLoading(true);
         const responseLogin = await login(email, senha);
         setLoading(false);

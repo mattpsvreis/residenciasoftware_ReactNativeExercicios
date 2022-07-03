@@ -44,15 +44,17 @@ export function CarrinhoProvider({ children }: any) {
                 precoProduto: _preco,
                 imagemProduto: _imagem,
             });
-
-            return produto;
         });
 
         console.log("Lista de Produtos no Carrinho: " + JSON.stringify(listProdutos()));
     }
 
-    const removeProduto = () => {
-        return null; //TO-DO
+    const removeProduto = (_id: number) => {
+        realmCarrinho.write(() => {
+            realmCarrinho.delete(
+                realmCarrinho.objects('Produto').filter(produto => produto.idProduto == _id)
+            )
+        })
     }
 
     return (

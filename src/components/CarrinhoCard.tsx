@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { Text, Image, Icon } from 'react-native-elements';
 import { CarrinhoContext } from '../context/CarrinhoContext';
 
-export default function ProdutoCard(props: any) {
+export default function CarrinhoCard(props: any) {
 
     const { removeProduto } = React.useContext(CarrinhoContext);
 
@@ -14,8 +14,6 @@ export default function ProdutoCard(props: any) {
     const handleRemove = () => {
         removeProduto(props.produto.idProduto);
     }
-
-    console.log("Produto: " + JSON.stringify(props.produto))
 
     return (
         <View style={props.styles.produtoContainer}>

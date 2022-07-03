@@ -3,8 +3,6 @@ import AxiosInstance from '../api/AxiosInstance';
 import jwt_decode from 'jwt-decode';
 
 const LoginService = async (email: string, senha: string) => {
-    console.log(`LoginService.Email: ${email}`)
-    console.log(`LoginService.Senha: ${senha}`)
 
     var tokenDecoded:any = null;
 
@@ -15,8 +13,6 @@ const LoginService = async (email: string, senha: string) => {
         });
 
         if (response.status === 200) {
-            console.log('LoginService.ResponseStatus: ' + JSON.stringify(response.data));
-
             tokenDecoded = jwt_decode(response.data.token);
             tokenDecoded['token'] = response.data.token;
 

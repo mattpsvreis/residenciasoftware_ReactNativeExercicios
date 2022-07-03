@@ -53,13 +53,13 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#242222',
         padding: 16,
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         flexDirection: 'column',
     },
     title: {
         color: 'aliceblue',
         fontSize: 32,
+        textAlign: 'center',
     },
     container: {
         flex: 1,
@@ -107,6 +107,7 @@ export const styles = StyleSheet.create({
     },
     buttonReturn: {
         backgroundColor: '#111',
+        width: '100%',
     },
 });
 

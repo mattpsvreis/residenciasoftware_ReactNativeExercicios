@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { RefreshControl, StyleSheet, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import CarrinhoCard from "../../components/CarrinhoCard";
 import { CarrinhoContext } from "../../context/CarrinhoContext";
@@ -8,6 +8,8 @@ const Carrinho = ({ navigation }: any) => {
 
     const { listProdutos } = React.useContext(CarrinhoContext)
     const [carrinho, setCarrinho] = React.useState();
+
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const getDadosCarrinho = () => {
         setCarrinho(listProdutos());
@@ -26,6 +28,9 @@ const Carrinho = ({ navigation }: any) => {
                 numColumns={1}
                 style={styles.produtosContainer}
                 renderItem={response => <CarrinhoCard produto={response.item} navigation={navigation} styles={styles} />}
+                refreshControl= {
+                    <RefreshControl refreshing={refreshing} onRefresh={getDadosCarrinho}/>
+                }
             />
         </View>
     );
